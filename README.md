@@ -14,7 +14,7 @@ pip install -r requirements.txt
 # Run
 
 ```bash
-python3 ./classify --help
+python3 ./classify.py --help
 ```
 
 # Authors

@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger()
 
+
 def main(args):
     print("Hello, World!")
 
@@ -39,7 +40,7 @@ def parse_command_line():
         help="Method to use for classification",
         choices=("average", "dominant"),
         type=str,
-        default="dominant"
+        default="dominant",
     )
 
     parser.add_argument(
@@ -52,6 +53,7 @@ def parse_command_line():
     )
 
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     args = parse_command_line()
