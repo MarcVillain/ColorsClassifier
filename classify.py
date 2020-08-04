@@ -20,6 +20,13 @@ def parse_command_line():
         formatter_class=argparse.RawTextHelpFormatter,
     )
 
+    # Arguments
+    parser.add_argument(
+        "folder",
+        metavar="IMAGES_FOLDER",
+        help="Folder where all images are located."
+    )
+
     # Options
     parser.add_argument(
         "--debug", help="Display debug information.", action="store_true"
@@ -50,6 +57,30 @@ def parse_command_line():
         help="Number of colors to extract in a palette for each image.",
         type=int,
         default=6,
+    )
+
+    parser.add_argument(
+        "-s",
+        "--sort-by",
+        metavar="TYPE",
+        help="Type of sorting to use.",
+        choices=("name", "rgb"),
+        type=str,
+        default="name",
+    )
+
+    parser.add_argument(
+        "-r",
+        "--recurse",
+        help="Look for images in subdirectories as well.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-f",
+        "--force",
+        help="Do not ask for confirmation to override files or folders. Use cautiously.",
+        action="store_true",
     )
 
     return parser.parse_args()

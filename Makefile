@@ -13,10 +13,10 @@ install:
 	pip install -r requirements.txt
 
 run:
-	$(PYTHON) $(BIN) --output $(OUTPUT)
+	$(PYTHON) $(BIN) --output $(OUTPUT) images
 
 debug:
-	$(PYTHON) $(BIN) --debug --output $(OUTPUT)
+	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) images
 
 format:
 	black -l 78 *.py **/*.py
