@@ -1,8 +1,11 @@
 import imghdr
+import logging
 import os
 import shutil
 
 from helpers.IOHelper import IOHelper
+
+logger = logging.getLogger()
 
 class FilesHelper:
     @staticmethod
@@ -37,9 +40,9 @@ class FilesHelper:
             file_path = os.path.join(folder, f)
             if not os.path.isfile(file_path):
                 continue
-            file_type = imghdr.what()
-            print(file_type)
-            if file_type == "None":
+            image_type = imghdr.what(file_path)
+            if image_type is None:
+                logger.debug(f"Not an image: {file_path}")
                 continue
             images.append(file_path)
         return images
