@@ -1,6 +1,7 @@
-PYTHON   = python3
-BIN      = classify.py
-OUTPUT   = output
+PYTHON        = python3
+BIN           = classify.py
+OUTPUT        = output
+IMAGES_FOLDER = images
 
 .PHONY: all install run debug format clean
 
@@ -13,13 +14,13 @@ install:
 	pip install -r requirements.txt
 
 run:
-	$(PYTHON) $(BIN) --output $(OUTPUT) images
+	$(PYTHON) $(BIN) --output $(OUTPUT) $(IMAGES_FOLDER)
 
 debug:
-	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) images
+	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) $(IMAGES_FOLDER)
 
 format:
-	black -l 78 *.py **/*.py
+	black -l 78 *.py **/*.py **/**/*.py
 
 clean:
 	$(RM) -rf $(OUTPUT)
