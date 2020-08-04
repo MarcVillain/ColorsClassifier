@@ -8,7 +8,6 @@ logger = logging.getLogger("color_classifier")
 
 
 def run(args):
-    print(args)
     output_type = Config.output_types.get(
         args.output_type, Config.output_types.get(Config.default_output)
     )
