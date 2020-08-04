@@ -4,6 +4,7 @@ from src.helpers.FilesHelper import FilesHelper
 
 from src.outputs import Output
 
+
 class YAMLOutput(Output):
     def prepare(self):
         return FilesHelper.create_file(self.output_path, self.force)

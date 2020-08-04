@@ -1,6 +1,7 @@
 from colorthief import ColorThief
 from src.methods import Method
 
+
 class DominantMethod(Method):
     def get_palette(self, image):
         color_thief = ColorThief(image)

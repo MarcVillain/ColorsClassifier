@@ -7,6 +7,7 @@ from src.helpers.IOHelper import IOHelper
 
 logger = logging.getLogger()
 
+
 class FilesHelper:
     @staticmethod
     def create_dir(path, force=False):
@@ -58,7 +59,6 @@ class FilesHelper:
             return False
 
         return True
-
 
     @staticmethod
     def get_images_in(folder):

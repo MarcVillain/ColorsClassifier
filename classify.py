@@ -41,6 +41,7 @@ def main(args):
         classified = classifier.classify(args.folder)
         output.compute(classified)
 
+
 def parse_command_line():
     """
     Parse the command line.
@@ -57,7 +58,7 @@ def parse_command_line():
     parser.add_argument(
         "folder",
         metavar="IMAGES_FOLDER",
-        help="Folder where all images are located."
+        help="Folder where all images are located.",
     )
 
     # Options
@@ -77,7 +78,8 @@ def parse_command_line():
         "-t",
         "--output-type",
         metavar="TYPE",
-        help="Type of output to use. Allowed values are " + ", ".join(output_types),
+        help="Type of output to use. Allowed values are "
+        + ", ".join(output_types),
         choices=output_types,
         default="yaml",
     )
@@ -86,7 +88,8 @@ def parse_command_line():
         "-m",
         "--method",
         metavar="NAME",
-        help="Method to use for classification. Allowed values are " + ", ".join(Classifier.methods.keys()),
+        help="Method to use for classification. Allowed values are "
+        + ", ".join(Classifier.methods.keys()),
         choices=Classifier.methods.keys(),
         type=str,
         default="dominant",
@@ -105,7 +108,8 @@ def parse_command_line():
         "-s",
         "--sort-by",
         metavar="TYPE",
-        help="Type of sorting to use. Allowed values are " + ", ".join(Classifier.sortings.keys()),
+        help="Type of sorting to use. Allowed values are "
+        + ", ".join(Classifier.sortings.keys()),
         choices=Classifier.sortings.keys(),
         type=str,
         default="name",
