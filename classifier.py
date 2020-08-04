@@ -1,15 +1,22 @@
+import logging
+
 from helpers.FilesHelper import FilesHelper
 
 from methods.AverageMethod import AverageMethod
 from methods.DominantMethod import DominantMethod
+from methods.PaletteMethod import PaletteMethod
 
 from sortings.NameSorting import NameSorting
 from sortings.RGBSorting import RGBSorting
+
+logger = logging.getLogger()
+
 
 class Classifier:
     methods = {
         "average": AverageMethod,
         "dominant": DominantMethod,
+        "palette": PaletteMethod,
     }
     sortings = {
         "name": NameSorting,
