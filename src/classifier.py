@@ -12,9 +12,11 @@ class Classifier:
         precision,
         method_name=Config.default_method,
         sort_by=Config.default_sorting,
+        message_queue=None,
     ):
         self.method = Config.methods.get(method_name)(precision)
         self.sorting = Config.sortings.get(sort_by)()
+        self.message_queue = message_queue
 
     def classify(self, folder, recurse=False):
         """
@@ -26,7 +28,12 @@ class Classifier:
 
         for i, image in enumerate(images):
             image_count = i + 1
-            logger.info(f"Computing image ({image_count}/{images_len})")
+
+            message = f"Computing image ({image_count}/{images_len})"
+            if self.message_queue is not None:
+                self.message_queue.put(message)
+            logger.info(message)
+
             palette = self.method.get_palette(image)
             for r, g, b in palette:
                 sort_value = self.sorting.get_value_for(r, g, b)

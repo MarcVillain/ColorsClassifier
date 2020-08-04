@@ -1,4 +1,7 @@
+import multiprocessing
+import queue
 import tkinter as tk
+from multiprocessing.context import Process
 from tkinter import ttk
 
 from src import run
@@ -13,6 +16,7 @@ class MainWindow(tk.Tk):
         super().__init__()
 
         self.args = args
+        self.queue = multiprocessing.Queue()
 
         self.geometry("500x400")
         self.title("Colors Classifier")
@@ -49,8 +53,25 @@ class MainWindow(tk.Tk):
             self, variable=output_color_var, command=_set_output_color
         ).grid(row=5, column=1, pady=5, padx=5)
 
-        def _run():
-            run(args)
+        self.info_label = tk.Label(self, text="")
 
-        button = ttk.Button(self, text="Classify", command=_run)
-        button.grid(row=10, column=0, columnspan=2, pady=5)
+        self.button = ttk.Button(self, text="Classify", command=self._on_click)
+        self.button.grid(row=10, column=0, columnspan=2, pady=5)
+
+        self.info_label.grid(row=11, column=0, columnspan=2, pady=5, padx=5)
+
+    def _on_click(self):
+        self.button.config(state=tk.DISABLED)
+        self.p1 = Process(target=run, args=(self.args, self.queue,))
+        self.p1.start()
+        self.after(100, self._on_update)
+
+    def _on_update(self):
+        while not self.queue.empty():
+            message = self.queue.get()
+            self.info_label.configure(text=message)
+
+        if self.p1.is_alive():
+            self.after(100, self._on_update)
+            return
+        self.button.config(state=tk.NORMAL)
