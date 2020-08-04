@@ -10,7 +10,9 @@ class FolderPickerFrame(tk.Frame):
 
         title = tk.Label(self, text=title)
         title.grid(row=0, column=0, pady=5, padx=5)
-        self.label = tk.Label(self, text="")
+        sv = tk.StringVar()
+        sv.trace("w", lambda name, index, mode, sv=sv: self.command(sv.get()))
+        self.label = tk.Entry(self, textvariable=sv)
         self.label.grid(row=0, column=1, pady=5, padx=5)
         button = ttk.Button(self, text="Browse", command=self.file_dialog)
         button.grid(row=0, column=2, pady=5, padx=5)
@@ -20,4 +22,5 @@ class FolderPickerFrame(tk.Frame):
             initialdir=".", title="Select the output folder"
         )
         self.command(folder_path)
-        self.label.configure(text=folder_path)
+        self.label.delete(0, tk.END)
+        self.label.insert(0, folder_path)

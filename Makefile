@@ -19,6 +19,9 @@ run:
 debug:
 	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c -n
 
+debug_gui:
+	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c
+
 format:
 	black -l 78 *.py **/*.py **/**/*.py
 
