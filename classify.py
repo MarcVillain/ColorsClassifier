@@ -23,6 +23,12 @@ def main(args):
 
     logger.debug(f"Program arguments: {args}")
 
+    if FilesHelper.create_dir(args.output, args.force):
+        classifier = Classifier(args.precision, args.method, args.sort_by)
+        classified = classifier.classify(args.folder)
+        print(classified)
+        # TODO: Output to proper folder
+
 
 def parse_command_line():
     """
@@ -61,7 +67,7 @@ def parse_command_line():
         "--method",
         metavar="NAME",
         help="Method to use for classification",
-        choices=("average", "dominant"),
+        choices=Classifier.methods.keys(),
         type=str,
         default="dominant",
     )
@@ -80,7 +86,7 @@ def parse_command_line():
         "--sort-by",
         metavar="TYPE",
         help="Type of sorting to use.",
-        choices=("name", "rgb"),
+        choices=Classifier.sortings.keys(),
         type=str,
         default="name",
     )
