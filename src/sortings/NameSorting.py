@@ -1,9 +1,14 @@
+import math
+
+from colormath.color_conversions import convert_color
+from colormath.color_diff import delta_e_cie2000
+from colormath.color_objects import sRGBColor, LabColor
+
 from src.sortings import Sorting
 
 
 class NameSorting(Sorting):
     colors = {
-        "magenta": (255, 0, 255),
         "dark red": (139, 0, 0),
         "brown": (165, 42, 42),
         "firebrick": (178, 34, 34),
@@ -87,7 +92,7 @@ class NameSorting(Sorting):
         "thistle": (216, 191, 216),
         "plum": (221, 160, 221),
         "violet": (238, 130, 238),
-        "magenta / fuchsia": (255, 0, 255),
+        "magenta": (255, 0, 255),
         "orchid": (218, 112, 214),
         "medium violet red": (199, 21, 133),
         "pale violet red": (219, 112, 147),
@@ -145,16 +150,18 @@ class NameSorting(Sorting):
     }
 
     def _rgb_distance(self, color_a, color_b):
-        # 0 = R, 1 = G, 2 = B
-        return (
-            abs(color_a[0] - color_b[0])
-            + abs(color_a[1] - color_b[1])
-            + abs(color_a[2] - color_b[2])
-        )
+        color1_rgb = sRGBColor(color_a[0] / 255, color_a[1] / 255, color_a[2] / 255)
+        color2_rgb = sRGBColor(color_b[0] / 255, color_b[1] / 255, color_b[2] / 255)
+
+        # Convert from RGB to Lab Color Space
+        color1_lab = convert_color(color1_rgb, LabColor)
+        color2_lab = convert_color(color2_rgb, LabColor)
+
+        # Find the color difference
+        return delta_e_cie2000(color1_lab, color2_lab)
 
     def get_value_for(self, r, g, b):
-        # Max distance is 255 * 3 = 765
-        closest_distance = 770
+        closest_distance = math.inf
         closest_name = "black"
 
         # Look for color with closest distance to our color value
