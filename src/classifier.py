@@ -2,12 +2,12 @@ import logging
 
 from src.helpers.FilesHelper import FilesHelper
 
-from src.methods import AverageMethod
+from src.methods.AverageMethod import AverageMethod
 from src.methods.DominantMethod import DominantMethod
-from src.methods import PaletteMethod
+from src.methods.PaletteMethod import PaletteMethod
 
-from src.sortings import NameSorting
-from src.sortings import RGBSorting
+from src.sortings.NameSorting import NameSorting
+from src.sortings.RGBSorting import RGBSorting
 
 logger = logging.getLogger()
 

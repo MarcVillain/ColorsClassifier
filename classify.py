@@ -3,9 +3,9 @@ import logging
 import sys
 
 from src.classifier import Classifier
-from src.outputs import FilenamesOutput
-from src.outputs import FoldersOutput
-from src.outputs import StdoutOutput
+from src.outputs.FilenamesOutput import FilenamesOutput
+from src.outputs.FoldersOutput import FoldersOutput
+from src.outputs.StdoutOutput import StdoutOutput
 from src.outputs.YAMLOutput import YAMLOutput
 
 logger = logging.getLogger()
@@ -39,6 +39,7 @@ def main(args):
     if output.prepare():
         classifier = Classifier(args.precision, args.method, args.sort_by)
         classified = classifier.classify(args.folder)
+        logger.info("Creating output")
         output.compute(classified)
 
 
