@@ -34,6 +34,33 @@ class FilesHelper:
         return True
 
     @staticmethod
+    def create_file(path, force=False):
+        """
+        Create an empty file. If it already exists, ask for override.
+        :param path: Path of the file to create.
+        :param force: If True, it will not ask for permission to override.
+        :return: True if created else False.
+        """
+        # Ask for cleanup if necessary
+        if os.path.exists(path):
+            if not force:
+                print(f"File '{path}' already exists.")
+                if not IOHelper.ask_yes_no("Do you want to replace it?"):
+                    return False
+            shutil.rmtree(path, ignore_errors=True)
+
+        # Create file
+        try:
+            with open(path, "w") as f:
+                pass
+        except OSError:
+            logger.error(f"Creation of the file '{path}' failed")
+            return False
+
+        return True
+
+
+    @staticmethod
     def get_images_in(folder):
         images = []
         for f in os.listdir(folder):

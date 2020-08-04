@@ -4,6 +4,10 @@ import sys
 
 from classifier import Classifier
 from helpers.FilesHelper import FilesHelper
+from outputs.FilenamesOutput import FilenamesOutput
+from outputs.FoldersOutput import FoldersOutput
+from outputs.StdoutOutput import StdoutOutput
+from outputs.YAMLOutput import YAMLOutput
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -16,6 +20,13 @@ logger_console_stream.setLevel(logging.INFO)
 logger.addHandler(logger_console_stream)
 
 
+output_types = {
+    "yaml": YAMLOutput,
+    "filenames": FilenamesOutput,
+    "folders": FoldersOutput,
+}
+
+
 def main(args):
     if args.debug:
         logger.setLevel(logging.DEBUG)
@@ -23,12 +34,13 @@ def main(args):
 
     logger.debug(f"Program arguments: {args}")
 
-    if FilesHelper.create_dir(args.output, args.force):
+    output_type = output_types.get(args.output_type, StdoutOutput)
+    output = output_type(args.output, args.force)
+
+    if output.prepare():
         classifier = Classifier(args.precision, args.method, args.sort_by)
         classified = classifier.classify(args.folder)
-        print(classified)
-        # TODO: Output to proper folder
-
+        output.compute(classified)
 
 def parse_command_line():
     """
@@ -63,10 +75,19 @@ def parse_command_line():
     )
 
     parser.add_argument(
+        "-t",
+        "--output-type",
+        metavar="TYPE",
+        help="Type of output to use. Allowed values are " + ", ".join(output_types),
+        choices=output_types,
+        default="yaml",
+    )
+
+    parser.add_argument(
         "-m",
         "--method",
         metavar="NAME",
-        help="Method to use for classification",
+        help="Method to use for classification. Allowed values are " + ", ".join(Classifier.methods.keys()),
         choices=Classifier.methods.keys(),
         type=str,
         default="dominant",
@@ -85,7 +106,7 @@ def parse_command_line():
         "-s",
         "--sort-by",
         metavar="TYPE",
-        help="Type of sorting to use.",
+        help="Type of sorting to use. Allowed values are " + ", ".join(Classifier.sortings.keys()),
         choices=Classifier.sortings.keys(),
         type=str,
         default="name",
