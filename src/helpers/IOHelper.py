@@ -1,3 +1,12 @@
+import logging
+from tkinter import messagebox
+
+from src.context import Context
+
+
+logger = logging.getLogger()
+
+
 class IOHelper:
     @staticmethod
     def ask_yes_no(message):
@@ -6,6 +15,16 @@ class IOHelper:
         :param message: The message to display.
         :return: True if input is case insensitive "y" or "yes" else False.
         """
-        print(message, "[y/N]", end="")
-        choice = input().lower()
-        return choice in ["y", "yes"]
+        if Context.is_gui:
+            return messagebox.askyesno("Confirmation", message)
+        else:
+            print(message, "[y/N]", end="")
+            choice = input().lower()
+            return choice in ["y", "yes"]
+
+    @staticmethod
+    def info(message):
+        if Context.is_gui:
+            messagebox.showinfo("Information", message)
+        else:
+            logger.info(message)

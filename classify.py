@@ -2,11 +2,11 @@ import argparse
 import logging
 import sys
 
-from src.classifier import Classifier
-from src.outputs.FilenamesOutput import FilenamesOutput
-from src.outputs.FoldersOutput import FoldersOutput
-from src.outputs.StdoutOutput import StdoutOutput
-from src.outputs.YAMLOutput import YAMLOutput
+from src import run
+from src.config import Config
+from src.context import Context
+from src.gui import center
+from src.gui.MainWindow import MainWindow
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -19,32 +19,20 @@ logger_console_stream.setLevel(logging.INFO)
 logger.addHandler(logger_console_stream)
 
 
-default_output = "yaml"
-output_types = {
-    "yaml": YAMLOutput,
-    "filenames": FilenamesOutput,
-    "folders": FoldersOutput,
-    "stdout": StdoutOutput,
-}
-
-
 def main(args):
     if args.debug:
         logger.setLevel(logging.DEBUG)
         logger_console_stream.setLevel(logging.DEBUG)
-
     logger.debug(f"Program arguments: {args}")
 
-    output_type = output_types.get(
-        args.output_type, output_types.get(default_output)
-    )
-    output = output_type(args.output, args.output_color, args.force)
+    Context.is_gui = not args.no_gui
 
-    if output.prepare():
-        classifier = Classifier(args.precision, args.method, args.sort_by)
-        classified = classifier.classify(args.folder)
-        logger.info(f"Creating output at {args.output}")
-        output.compute(classified)
+    if Context.is_gui:
+        window = MainWindow(args)
+        center(window)
+        window.mainloop()
+    else:
+        run(args)
 
 
 def parse_command_line():
@@ -61,9 +49,10 @@ def parse_command_line():
 
     # Arguments
     parser.add_argument(
-        "folder",
-        metavar="IMAGES_FOLDER",
-        help="Folder where all images are located.",
+        "-i",
+        "--images-folder",
+        metavar="FOLDER",
+        help="Folder where all images to classify are located.",
     )
 
     # Options
@@ -84,10 +73,10 @@ def parse_command_line():
         "--output-type",
         metavar="TYPE",
         help="Type of output to use. Allowed values are "
-        + ", ".join(output_types)
+        + ", ".join(Config.output_types)
         + ".",
-        choices=output_types,
-        default=default_output,
+        choices=Config.output_types,
+        default=Config.default_output,
     )
 
     parser.add_argument(
@@ -102,11 +91,11 @@ def parse_command_line():
         "--method",
         metavar="NAME",
         help="Method to use for classification. Allowed values are "
-        + ", ".join(Classifier.methods.keys())
+        + ", ".join(Config.methods.keys())
         + ".",
-        choices=Classifier.methods.keys(),
+        choices=Config.methods.keys(),
         type=str,
-        default=Classifier.default_method,
+        default=Config.default_method,
     )
 
     parser.add_argument(
@@ -123,11 +112,11 @@ def parse_command_line():
         "--sort-by",
         metavar="TYPE",
         help="Type of sorting to use. Allowed values are "
-        + ", ".join(Classifier.sortings.keys())
+        + ", ".join(Config.sortings.keys())
         + ".",
-        choices=Classifier.sortings.keys(),
+        choices=Config.sortings.keys(),
         type=str,
-        default=Classifier.default_sorting,
+        default=Config.default_sorting,
     )
 
     parser.add_argument(
@@ -141,6 +130,13 @@ def parse_command_line():
         "-f",
         "--force",
         help="Do not ask for confirmation to override files or folders. Use cautiously.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-n",
+        "--no-gui",
+        help="Disable GUI and use command line.",
         action="store_true",
     )
 

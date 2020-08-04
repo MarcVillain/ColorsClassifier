@@ -15,7 +15,7 @@ class FoldersOutput(Output):
 
             # Handle colored tile generation
             colored_tile_path = FilesHelper.join(new_dir, name + ".jpg")
-            self.gen_colored_tile(colored_tile_path, value.get("rgb"))
+            self.gen_colored_tile(colored_tile_path, value.get("rgb"), name)
 
             # Copy images to new directory
             for image in value.get("images"):

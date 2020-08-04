@@ -9,8 +9,24 @@ logger = logging.getLogger()
 
 
 class FilesHelper:
-    @staticmethod
-    def create_dir(path, force=False, ignore_errors=False):
+    @classmethod
+    def _clear_path(cls, path, force, ignore_errors):
+        if os.path.exists(path):
+            if not force:
+                if ignore_errors:
+                    return False
+                if not IOHelper.ask_yes_no(
+                    f"Folder '{path}' already exists.\nDo you want to replace it?"
+                ):
+                    return False
+
+            if os.path.isfile(path):
+                os.remove(path)
+            else:
+                shutil.rmtree(path, ignore_errors=True)
+
+    @classmethod
+    def create_dir(cls, path, force=False, ignore_errors=False):
         """
         Create a directory. If it already exists, ask for override.
         :param path: Path of the directory to create.
@@ -19,18 +35,7 @@ class FilesHelper:
         :return: True if created else False.
         """
         # Ask for cleanup if necessary
-        if os.path.exists(path):
-            if not force:
-                if ignore_errors:
-                    return False
-                print(f"Folder '{path}' already exists.")
-                if not IOHelper.ask_yes_no("Do you want to replace it?"):
-                    return False
-
-            if os.path.isfile(path):
-                os.remove(path)
-            else:
-                shutil.rmtree(path, ignore_errors=True)
+        cls._clear_path(path, force, ignore_errors)
 
         # Create directory
         try:
@@ -42,29 +47,24 @@ class FilesHelper:
 
         return True
 
-    @staticmethod
-    def create_file(path, force=False):
+    @classmethod
+    def create_file(cls, path, filename, force=False, ignore_errors=False):
         """
         Create an empty file. If it already exists, ask for override.
         :param path: Path of the file to create.
+        :param filename: File name to use if path is a directory.
         :param force: If True, it will not ask for permission to override.
+        :param ignore_errors: If True, fail without asking for override.
         :return: True if created else False.
         """
         # Ask for cleanup if necessary
-        if os.path.exists(path):
-            if not force:
-                print(f"File '{path}' already exists.")
-                if not IOHelper.ask_yes_no("Do you want to replace it?"):
-                    return False
-
-            if os.path.isfile(path):
-                os.remove(path)
-            else:
-                shutil.rmtree(path, ignore_errors=True)
+        cls._clear_path(path, force, ignore_errors)
 
         # Create file
+        if os.path.isdir(path):
+            path = os.path.join(path, filename)
         try:
-            with open(path, "w") as f:
+            with open(path, "w"):
                 pass
         except OSError:
             logger.error(f"Creation of the file '{path}' failed")
@@ -73,7 +73,8 @@ class FilesHelper:
         return True
 
     @staticmethod
-    def get_images_in(folder):
+    def get_images_in(folder, recurse=False):
+        # TODO: Recurse
         images = []
         for f in os.listdir(folder):
             file_path = os.path.join(folder, f)
@@ -95,5 +96,5 @@ class FilesHelper:
         shutil.copyfile(src, dst)
 
     @staticmethod
-    def basename(str):
-        return os.path.basename(str)
+    def basename(path):
+        return os.path.basename(path)

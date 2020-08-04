@@ -13,7 +13,7 @@ class FilenamesOutput(Output):
             colored_tile_path = FilesHelper.join(
                 self.output_path, name + ".jpg"
             )
-            self.gen_colored_tile(colored_tile_path, value.get("rgb"))
+            self.gen_colored_tile(colored_tile_path, value.get("rgb"), name)
 
             for image in value.get("images"):
                 # Copy image to new location

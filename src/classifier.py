@@ -1,42 +1,27 @@
 import logging
 
+from src.config import Config
 from src.helpers.FilesHelper import FilesHelper
-
-from src.methods.AverageMethod import AverageMethod
-from src.methods.DominantMethod import DominantMethod
-from src.methods.PaletteMethod import PaletteMethod
-
-from src.sortings.NameSorting import NameSorting
-from src.sortings.RGBSorting import RGBSorting
 
 logger = logging.getLogger()
 
 
 class Classifier:
-    default_method = "palette"
-    methods = {
-        "average": AverageMethod,
-        "dominant": DominantMethod,
-        "palette": PaletteMethod,
-    }
-    default_sorting = "name"
-    sortings = {
-        "name": NameSorting,
-        "rgb": RGBSorting,
-    }
-
     def __init__(
-        self, precision, method_name=default_method, sort_by=default_sorting
+        self,
+        precision,
+        method_name=Config.default_method,
+        sort_by=Config.default_sorting,
     ):
-        self.method = self.methods.get(method_name)(precision)
-        self.sorting = self.sortings.get(sort_by)()
+        self.method = Config.methods.get(method_name)(precision)
+        self.sorting = Config.sortings.get(sort_by)()
 
-    def classify(self, folder):
+    def classify(self, folder, recurse=False):
         """
         :return: Dictionary of classified images.
         """
         output = {}
-        images = FilesHelper.get_images_in(folder)
+        images = FilesHelper.get_images_in(folder, recurse=recurse)
         images_len = len(images)
 
         for i, image in enumerate(images):

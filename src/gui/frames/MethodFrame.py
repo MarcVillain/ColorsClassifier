@@ -1,0 +1,22 @@
+import logging
+
+from src.config import Config
+from src.gui.frames.OptionFrame import OptionFrame
+
+
+logger = logging.getLogger()
+
+
+class MethodFrame(OptionFrame):
+    def __init__(self, main_window, master=None):
+        def _set_method(value):
+            logger.debug(f"Set method to '{value}'.")
+            main_window.args.method = value
+
+        super().__init__(
+            default_value=Config.default_method,
+            values=Config.methods,
+            command=_set_method,
+            title="Method",
+            master=master,
+        )
