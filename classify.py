@@ -1,11 +1,27 @@
 import argparse
 import logging
+import sys
+
+from classifier import Classifier
+from helpers.FilesHelper import FilesHelper
 
 logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger_formatter = logging.Formatter(
+    "%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S"
+)
+logger_console_stream = logging.StreamHandler(sys.stdout)
+logger_console_stream.setFormatter(logger_formatter)
+logger_console_stream.setLevel(logging.INFO)
+logger.addHandler(logger_console_stream)
 
 
 def main(args):
-    print("Hello, World!")
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+        logger_console_stream.setLevel(logging.DEBUG)
+
+    logger.debug(f"Program arguments: {args}")
 
 
 def parse_command_line():
