@@ -13,23 +13,27 @@ logger = logging.getLogger()
 
 
 class Classifier:
+    default_method = "palette"
     methods = {
         "average": AverageMethod,
         "dominant": DominantMethod,
         "palette": PaletteMethod,
     }
+    default_sorting = "name"
     sortings = {
         "name": NameSorting,
         "rgb": RGBSorting,
     }
 
-    def __init__(self, precision, method_name="dominant", sort_by="name"):
+    def __init__(
+        self, precision, method_name=default_method, sort_by=default_sorting
+    ):
         self.method = self.methods.get(method_name)(precision)
         self.sorting = self.sortings.get(sort_by)()
 
     def classify(self, folder):
         """
-        :return: Dictionnary of classified images.
+        :return: Dictionary of classified images.
         """
         output = {}
         images = FilesHelper.get_images_in(folder)

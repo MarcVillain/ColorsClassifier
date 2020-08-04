@@ -19,10 +19,12 @@ logger_console_stream.setLevel(logging.INFO)
 logger.addHandler(logger_console_stream)
 
 
+default_output = "yaml"
 output_types = {
     "yaml": YAMLOutput,
     "filenames": FilenamesOutput,
     "folders": FoldersOutput,
+    "stdout": StdoutOutput,
 }
 
 
@@ -33,7 +35,9 @@ def main(args):
 
     logger.debug(f"Program arguments: {args}")
 
-    output_type = output_types.get(args.output_type, StdoutOutput)
+    output_type = output_types.get(
+        args.output_type, output_types.get(default_output)
+    )
     output = output_type(args.output, args.force)
 
     if output.prepare():
@@ -82,7 +86,7 @@ def parse_command_line():
         help="Type of output to use. Allowed values are "
         + ", ".join(output_types),
         choices=output_types,
-        default="yaml",
+        default=default_output,
     )
 
     parser.add_argument(
@@ -93,7 +97,7 @@ def parse_command_line():
         + ", ".join(Classifier.methods.keys()),
         choices=Classifier.methods.keys(),
         type=str,
-        default="dominant",
+        default=Classifier.default_method,
     )
 
     parser.add_argument(
@@ -113,7 +117,7 @@ def parse_command_line():
         + ", ".join(Classifier.sortings.keys()),
         choices=Classifier.sortings.keys(),
         type=str,
-        default="name",
+        default=Classifier.default_sorting,
     )
 
     parser.add_argument(
