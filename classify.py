@@ -84,7 +84,8 @@ def parse_command_line():
         "--output-type",
         metavar="TYPE",
         help="Type of output to use. Allowed values are "
-        + ", ".join(output_types) + ".",
+        + ", ".join(output_types)
+        + ".",
         choices=output_types,
         default=default_output,
     )
@@ -101,7 +102,8 @@ def parse_command_line():
         "--method",
         metavar="NAME",
         help="Method to use for classification. Allowed values are "
-        + ", ".join(Classifier.methods.keys()) + ".",
+        + ", ".join(Classifier.methods.keys())
+        + ".",
         choices=Classifier.methods.keys(),
         type=str,
         default=Classifier.default_method,
@@ -121,7 +123,8 @@ def parse_command_line():
         "--sort-by",
         metavar="TYPE",
         help="Type of sorting to use. Allowed values are "
-        + ", ".join(Classifier.sortings.keys()) + ".",
+        + ", ".join(Classifier.sortings.keys())
+        + ".",
         choices=Classifier.sortings.keys(),
         type=str,
         default=Classifier.default_sorting,

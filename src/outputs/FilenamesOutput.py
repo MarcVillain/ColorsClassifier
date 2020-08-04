@@ -10,7 +10,9 @@ class FilenamesOutput(Output):
     def compute(self, classified):
         for name, value in classified.items():
             # Handle colored tile generation
-            colored_tile_path = FilesHelper.join(self.output_path, name + ".jpg")
+            colored_tile_path = FilesHelper.join(
+                self.output_path, name + ".jpg"
+            )
             self.gen_colored_tile(colored_tile_path, value.get("rgb"))
 
             for image in value.get("images"):

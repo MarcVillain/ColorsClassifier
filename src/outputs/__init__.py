@@ -22,5 +22,5 @@ class Output(ABC):
     def gen_colored_tile(self, file_path, rgb):
         if self.output_color:
             rgb = (int(rgb[0]), int(rgb[1]), int(rgb[2]))
-            colored_tile = Image.new("RGB", (1, 1), rgb)
+            colored_tile = Image.new("RGB", (50, 50), rgb)
             colored_tile.save(file_path)
