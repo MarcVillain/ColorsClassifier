@@ -4,7 +4,7 @@ from tkinter import messagebox
 from src.context import Context
 
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class IOHelper:

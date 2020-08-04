@@ -8,7 +8,7 @@ from src.context import Context
 from src.gui import center
 from src.gui.MainWindow import MainWindow
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 logger.setLevel(logging.INFO)
 logger_formatter = logging.Formatter(
     "%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S"

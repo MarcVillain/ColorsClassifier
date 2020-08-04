@@ -4,7 +4,7 @@ from src.config import Config
 from src.gui.frames.OptionFrame import OptionFrame
 
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class MethodFrame(OptionFrame):

@@ -3,7 +3,7 @@ import logging
 from src.config import Config
 from src.helpers.FilesHelper import FilesHelper
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class Classifier:

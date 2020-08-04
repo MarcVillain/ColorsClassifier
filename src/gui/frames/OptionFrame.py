@@ -2,7 +2,7 @@ import logging
 import tkinter as tk
 from tkinter import ttk
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class OptionFrame(tk.Frame):

@@ -5,7 +5,7 @@ import shutil
 
 from src.helpers.IOHelper import IOHelper
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class FilesHelper:

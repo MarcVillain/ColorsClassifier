@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from src.sortings.NameSorting import NameSorting
 
-logger = logging.getLogger()
+logger = logging.getLogger("color_classifier")
 
 
 class Output(ABC):

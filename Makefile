@@ -14,10 +14,10 @@ install:
 	pip install -r requirements.txt
 
 run:
-	$(PYTHON) $(BIN) --output $(OUTPUT) $(IMAGES_FOLDER)
+	$(PYTHON) $(BIN) --output $(OUTPUT) $(IMAGES_FOLDER) --no-gui
 
 debug:
-	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) $(IMAGES_FOLDER)
+	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c -n
 
 format:
 	black -l 78 *.py **/*.py **/**/*.py
