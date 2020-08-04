@@ -11,4 +11,4 @@ class YAMLOutput(Output):
 
     def compute(self, classified):
         with open(self.output_path, "w") as output_file:
-            yaml_format = yaml.dump(classified, output_file)
+            yaml.dump(classified, output_file)

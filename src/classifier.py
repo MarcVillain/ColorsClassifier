@@ -45,8 +45,8 @@ class Classifier:
             palette = self.method.get_palette(image)
             for r, g, b in palette:
                 sort_value = self.sorting.get_value_for(r, g, b)
-                # Make sure the list is set
-                output[sort_value] = output.get(sort_value, [])
+                # Make sure the element exists
+                output[sort_value] = output.get(sort_value, {"rgb": (r, g, b), "images": []})
                 # Append image to the list
-                output[sort_value].append(image)
+                output[sort_value]["images"].append(image)
         return output

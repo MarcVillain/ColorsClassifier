@@ -8,8 +8,12 @@ class FilenamesOutput(Output):
         return FilesHelper.create_dir(self.output_path, self.force)
 
     def compute(self, classified):
-        for name, images in classified.items():
-            for image in images:
+        for name, value in classified.items():
+            # Handle colored tile generation
+            colored_tile_path = FilesHelper.join(self.output_path, name + ".jpg")
+            self.gen_colored_tile(colored_tile_path, value.get("rgb"))
+
+            for image in value.get("images"):
                 # Copy image to new location
                 image_name = name + "_" + FilesHelper.basename(image)
                 new_image = FilesHelper.join(self.output_path, image_name)

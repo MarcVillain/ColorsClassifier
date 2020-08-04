@@ -56,7 +56,11 @@ class FilesHelper:
                 print(f"File '{path}' already exists.")
                 if not IOHelper.ask_yes_no("Do you want to replace it?"):
                     return False
-            shutil.rmtree(path, ignore_errors=True)
+
+            if os.path.isfile(path):
+                os.remove(path)
+            else:
+                shutil.rmtree(path, ignore_errors=True)
 
         # Create file
         try:

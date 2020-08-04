@@ -38,7 +38,7 @@ def main(args):
     output_type = output_types.get(
         args.output_type, output_types.get(default_output)
     )
-    output = output_type(args.output, args.force)
+    output = output_type(args.output, args.output_color, args.force)
 
     if output.prepare():
         classifier = Classifier(args.precision, args.method, args.sort_by)
@@ -87,6 +87,13 @@ def parse_command_line():
         + ", ".join(output_types) + ".",
         choices=output_types,
         default=default_output,
+    )
+
+    parser.add_argument(
+        "-c",
+        "--output-color",
+        help="Output a colored tile to have a visual cue of the color.",
+        action="store_true",
     )
 
     parser.add_argument(
