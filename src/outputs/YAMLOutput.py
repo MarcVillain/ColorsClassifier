@@ -1,8 +1,8 @@
 import yaml
 
-from helpers.FilesHelper import FilesHelper
+from src.helpers.FilesHelper import FilesHelper
 
-from outputs import Output
+from src.outputs import Output
 
 class YAMLOutput(Output):
     def prepare(self):

@@ -1,6 +1,6 @@
-from outputs import Output
+from src.outputs import Output
 
-from helpers.FilesHelper import FilesHelper
+from src.helpers.FilesHelper import FilesHelper
 
 class FoldersOutput(Output):
     def prepare(self):

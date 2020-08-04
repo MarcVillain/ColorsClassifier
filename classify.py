@@ -2,12 +2,11 @@ import argparse
 import logging
 import sys
 
-from classifier import Classifier
-from helpers.FilesHelper import FilesHelper
-from outputs.FilenamesOutput import FilenamesOutput
-from outputs.FoldersOutput import FoldersOutput
-from outputs.StdoutOutput import StdoutOutput
-from outputs.YAMLOutput import YAMLOutput
+from src.classifier import Classifier
+from src.outputs import FilenamesOutput
+from src.outputs import FoldersOutput
+from src.outputs import StdoutOutput
+from src.outputs.YAMLOutput import YAMLOutput
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

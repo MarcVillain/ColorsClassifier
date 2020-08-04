@@ -3,7 +3,7 @@ import logging
 import os
 import shutil
 
-from helpers.IOHelper import IOHelper
+from src.helpers.IOHelper import IOHelper
 
 logger = logging.getLogger()
 

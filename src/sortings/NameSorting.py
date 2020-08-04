@@ -1,4 +1,4 @@
-from sortings import Sorting
+from src.sortings import Sorting
 
 class NameSorting(Sorting):
     colors = {

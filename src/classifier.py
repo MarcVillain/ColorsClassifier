@@ -1,13 +1,13 @@
 import logging
 
-from helpers.FilesHelper import FilesHelper
+from src.helpers.FilesHelper import FilesHelper
 
-from methods.AverageMethod import AverageMethod
-from methods.DominantMethod import DominantMethod
-from methods.PaletteMethod import PaletteMethod
+from src.methods import AverageMethod
+from src.methods.DominantMethod import DominantMethod
+from src.methods import PaletteMethod
 
-from sortings.NameSorting import NameSorting
-from sortings.RGBSorting import RGBSorting
+from src.sortings import NameSorting
+from src.sortings import RGBSorting
 
 logger = logging.getLogger()
 
