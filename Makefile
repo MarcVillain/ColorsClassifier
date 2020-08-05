@@ -1,32 +1,43 @@
 PYTHON        = python3
-BIN           = classify.py
-OUTPUT        = output
-IMAGES_FOLDER = images
+BIN           = colorsclassifier
+OUTPUT        = ~/Downloads/output
+IMAGES_FOLDER = ~/Downloads/images
 
-.PHONY: all install run debug format clean
+.PHONY: all setup install run run_gui debug debug_gui build_osx format clean
 
 all:
 	make run
 
-install:
+setup:
 	$(PYTHON) -m venv venv
 	source venv/bin/activate
 	pip install -r requirements.txt
 
+install:
+	pip install .
+
+upgrade:
+	pip install --upgrade --force-reinstall --no-deps .
+
 run:
-	$(PYTHON) $(BIN) --output $(OUTPUT) $(IMAGES_FOLDER) --no-gui
+	$(BIN) --output $(OUTPUT) --images-folder $(IMAGES_FOLDER)
+
+run_gui:
+	$(BIN) --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) --gui
 
 debug:
-	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c -n
+	make upgrade
+	$(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) --method palette --output-type filenames --output-color
 
 debug_gui:
-	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c
+	make upgrade
+	$(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) --method palette --output-type filenames --output-color --gui
 
 build_osx:
 	./scripts/build_osx.sh
 
 format:
-	black -l 78 *.py **/*.py **/**/*.py
+	black -l 78 colorsclassifier/
 
 clean:
-	$(RM) -rf $(OUTPUT) dist/
+	$(RM) -rf $(OUTPUT) dist/ build/ *.egg-info .eggs

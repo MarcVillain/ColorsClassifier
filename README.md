@@ -1,4 +1,4 @@
-ColorClassifier
+ColorsClassifier
 ===
 
 Simple script that lets you order images based on color.
@@ -9,12 +9,15 @@ Simple script that lets you order images based on color.
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+pip install .
 ```
 
 # Run
 
+Make sure you have activated your venv first.
+
 ```bash
-python3 ./classify.py --help
+colorsclassifier --help
 ```
 
 # Authors

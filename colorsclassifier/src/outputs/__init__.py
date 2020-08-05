@@ -4,7 +4,7 @@ from abc import ABC
 
 from PIL import Image, ImageDraw, ImageFont
 
-from src.sortings.NameSorting import NameSorting
+from colorsclassifier.src.sortings.NameSorting import NameSorting
 
 logger = logging.getLogger("color_classifier")
 

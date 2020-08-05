@@ -1,14 +1,15 @@
 import multiprocessing
-import queue
 import tkinter as tk
 from multiprocessing.context import Process
 from tkinter import ttk
 
-from src import run
-from src.gui.frames.FolderPickerFrame import FolderPickerFrame
-from src.gui.frames.MethodFrame import MethodFrame
-from src.gui.frames.OutputFrame import OutputFrame
-from src.gui.frames.SortingFrame import SortingFrame
+from colorsclassifier.src import run
+from colorsclassifier.src.gui.frames.FolderPickerFrame import (
+    FolderPickerFrame,
+)
+from colorsclassifier.src.gui.frames.MethodFrame import MethodFrame
+from colorsclassifier.src.gui.frames.OutputFrame import OutputFrame
+from colorsclassifier.src.gui.frames.SortingFrame import SortingFrame
 
 
 class MainWindow(tk.Tk):
@@ -55,7 +56,9 @@ class MainWindow(tk.Tk):
 
         self.info_label = tk.Label(self, text="")
 
-        self.button = ttk.Button(self, text="Classify", command=self._on_click)
+        self.button = ttk.Button(
+            self, text="Classify", command=self._on_click
+        )
         self.button.grid(row=10, column=0, columnspan=2, pady=5)
 
         self.info_label.grid(row=11, column=0, columnspan=2, pady=5, padx=5)

@@ -1,7 +1,7 @@
 import logging
 
-from src.classifier import Classifier
-from src.config import Config
+from colorsclassifier.src.classifier import Classifier
+from colorsclassifier.src.config import Config
 
 logger = logging.getLogger("color_classifier")
 
@@ -19,7 +19,9 @@ def run(args, message_queue=None):
     output = output_type(args.output, args.output_color, args.force)
 
     if output.prepare():
-        classifier = Classifier(args.precision, args.method, args.sort_by, message_queue)
+        classifier = Classifier(
+            args.precision, args.method, args.sort_by, message_queue
+        )
         classified = classifier.classify(args.images_folder, args.recurse)
         output.compute(classified)
 

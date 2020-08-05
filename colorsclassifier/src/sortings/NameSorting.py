@@ -4,7 +4,7 @@ from colormath.color_conversions import convert_color
 from colormath.color_diff import delta_e_cie2000
 from colormath.color_objects import sRGBColor, LabColor
 
-from src.sortings import Sorting
+from colorsclassifier.src.sortings import Sorting
 
 
 class NameSorting(Sorting):
@@ -150,8 +150,12 @@ class NameSorting(Sorting):
     }
 
     def _rgb_distance(self, color_a, color_b):
-        color1_rgb = sRGBColor(color_a[0] / 255, color_a[1] / 255, color_a[2] / 255)
-        color2_rgb = sRGBColor(color_b[0] / 255, color_b[1] / 255, color_b[2] / 255)
+        color1_rgb = sRGBColor(
+            color_a[0] / 255, color_a[1] / 255, color_a[2] / 255
+        )
+        color2_rgb = sRGBColor(
+            color_b[0] / 255, color_b[1] / 255, color_b[2] / 255
+        )
 
         # Convert from RGB to Lab Color Space
         color1_lab = convert_color(color1_rgb, LabColor)

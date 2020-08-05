@@ -1,6 +1,6 @@
-from src.outputs import Output
+from colorsclassifier.src.outputs import Output
 
-from src.helpers.FilesHelper import FilesHelper
+from colorsclassifier.src.helpers.FilesHelper import FilesHelper
 
 
 class FilenamesOutput(Output):

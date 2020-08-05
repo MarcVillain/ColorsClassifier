@@ -1,7 +1,7 @@
 import logging
 from tkinter import messagebox
 
-from src.context import Context
+from colorsclassifier.src.context import Context
 
 
 logger = logging.getLogger("color_classifier")

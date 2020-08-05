@@ -2,11 +2,11 @@ import argparse
 import logging
 import sys
 
-from src import run
-from src.config import Config
-from src.context import Context
-from src.gui import center
-from src.gui.MainWindow import MainWindow
+from colorsclassifier.src import run
+from colorsclassifier.src.config import Config
+from colorsclassifier.src.context import Context
+from colorsclassifier.src.gui import center
+from colorsclassifier.src.gui.MainWindow import MainWindow
 
 logger = logging.getLogger("color_classifier")
 logger.setLevel(logging.INFO)
@@ -17,22 +17,6 @@ logger_console_stream = logging.StreamHandler(sys.stdout)
 logger_console_stream.setFormatter(logger_formatter)
 logger_console_stream.setLevel(logging.INFO)
 logger.addHandler(logger_console_stream)
-
-
-def main(args):
-    if args.debug:
-        logger.setLevel(logging.DEBUG)
-        logger_console_stream.setLevel(logging.DEBUG)
-    logger.debug(f"Program arguments: {args}")
-
-    Context.is_gui = not args.no_gui
-
-    if Context.is_gui:
-        window = MainWindow(args)
-        center(window)
-        window.mainloop()
-    else:
-        run(args)
 
 
 def parse_command_line():
@@ -134,15 +118,32 @@ def parse_command_line():
     )
 
     parser.add_argument(
-        "-n",
-        "--no-gui",
-        help="Disable GUI and use command line.",
+        "-g",
+        "--gui",
+        help="Start GUI instead of using command line.",
         action="store_true",
     )
 
     return parser.parse_args()
 
 
-if __name__ == "__main__":
+def main():
     args = parse_command_line()
-    main(args)
+
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+        logger_console_stream.setLevel(logging.DEBUG)
+    logger.debug(f"Program arguments: {args}")
+
+    Context.is_gui = args.gui
+
+    if Context.is_gui:
+        window = MainWindow(args)
+        center(window)
+        window.mainloop()
+    else:
+        run(args)
+
+
+if __name__ == "__main__":
+    main()

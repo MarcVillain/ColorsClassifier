@@ -1,4 +1,4 @@
-from src.sortings import Sorting
+from colorsclassifier.src.sortings import Sorting
 
 
 class RGBSorting(Sorting):

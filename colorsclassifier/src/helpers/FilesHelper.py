@@ -3,7 +3,7 @@ import logging
 import os
 import shutil
 
-from src.helpers.IOHelper import IOHelper
+from colorsclassifier.src.helpers.IOHelper import IOHelper
 
 logger = logging.getLogger("color_classifier")
 
@@ -74,8 +74,11 @@ class FilesHelper:
 
     @staticmethod
     def get_images_in(folder, recurse=False):
-        # TODO: Recurse
+        if not os.path.exists(folder):
+            return []
+
         images = []
+        # TODO: Recursive search
         for f in os.listdir(folder):
             file_path = os.path.join(folder, f)
             if not os.path.isfile(file_path):

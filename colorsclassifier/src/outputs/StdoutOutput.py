@@ -1,4 +1,4 @@
-from src.outputs import Output
+from colorsclassifier.src.outputs import Output
 
 
 class StdoutOutput(Output):

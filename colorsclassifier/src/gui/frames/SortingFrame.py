@@ -1,7 +1,7 @@
 import logging
 
-from src.config import Config
-from src.gui.frames.OptionFrame import OptionFrame
+from colorsclassifier.src.config import Config
+from colorsclassifier.src.gui.frames.OptionFrame import OptionFrame
 
 
 logger = logging.getLogger("color_classifier")

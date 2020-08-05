@@ -1,7 +1,7 @@
 import logging
 
-from src.config import Config
-from src.helpers.FilesHelper import FilesHelper
+from colorsclassifier.src.config import Config
+from colorsclassifier.src.helpers.FilesHelper import FilesHelper
 
 logger = logging.getLogger("color_classifier")
 

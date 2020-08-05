@@ -11,17 +11,38 @@
 # ==============================================================================
 
 # Configuration variables
-APPNAME="Colors Classifier"
-
-# Go to proper worlspace
-mkdir -p dist/
-cd dist
-
-CONTENTS_DIR="${APPNAME}.app/Contents"
+APP_NAME="ColorsClassifier"
+APP_DIR="dist/${APP_NAME}.app"
+CONTENTS_DIR="${APP_DIR}/Contents"
 MACOS_DIR="${CONTENTS_DIR}/MacOS"
+RES_DIR="${CONTENTS_DIR}/Resources"
+APP_FILE="${MACOS_DIR}/${APP_NAME}"
 
-# Create binary that will setup/start the app
-mkdir -p "${MACOS_DIR}"
-cp ../scripts/run_app.sh "${MACOS_DIR}/${APPNAME}"
-chmod +x "${MACOS_DIR}/${APPNAME}"
-fileicon set "Colors Classifier.app" "../images/icon.png"
+if [ "${1}" == "--clean" ]; do
+    rm -rf "${APP_DIR}"
+fi
+
+# If nothing was already built
+if [ ! -d "${APP_DIR}" ]; then
+    # Create workspace
+    mkdir -p "${MACOS_DIR}"
+    mkdir -p "${RES_DIR}"
+    # Add "binary"
+    cp scripts/run_app.sh "${APP_FILE}"
+    chmod +x "${APP_FILE}"
+    # Set icon
+    fileicon set "${APP_DIR}" "images/icon.png"
+    # Create and activate virtualenv
+    cd "${RES_DIR}"
+    python3 -m venv venv
+    source venv/bin/activate
+    cd -
+    # Install Colors-Classifier package
+    pip install -r requirements.txt
+    pip install .
+
+# Update sources only
+else
+    source "${RES_DIR}/venv/bin/activate"
+    pip install --upgrade --force-reinstall --no-deps .
+fi

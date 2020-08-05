@@ -1,5 +1,5 @@
 from colorthief import ColorThief
-from src.methods import Method
+from colorsclassifier.src.methods import Method
 
 
 class PaletteMethod(Method):
