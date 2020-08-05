@@ -22,12 +22,11 @@ debug:
 debug_gui:
 	$(PYTHON) $(BIN) --debug --force --output $(OUTPUT) --images-folder $(IMAGES_FOLDER) -m palette -t filenames -c
 
-build:
-	# Build MacOS App
-	$(PYTHON) setup.py py2app
+build_osx:
+	./scripts/build_osx.sh
 
 format:
 	black -l 78 *.py **/*.py **/**/*.py
 
 clean:
-	$(RM) -rf $(OUTPUT) build/ dist/
+	$(RM) -rf $(OUTPUT) dist/
