@@ -22,11 +22,8 @@ class MainWindow(tk.Tk):
         self.args = args
         self.queue = multiprocessing.Queue()
 
-        width, height = 505, 390
-        self.geometry(f"{width}x{height}")
         self.title("ColorsClassifier")
         self.configure(background="white")
-        # self.resizable(False, False)
 
         # Set background image
         image = Image.open(f"{Context.app_images_folder}/background.png")
