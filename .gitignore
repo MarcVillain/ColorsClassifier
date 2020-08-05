@@ -5,3 +5,5 @@ build/
 .egg/
 *.egg-info
 local/
+.DS_Store
+.idea
