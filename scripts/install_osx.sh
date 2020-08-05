@@ -49,6 +49,9 @@ cd ColorsClassifier/
 ./scripts/build_osx.sh
 
 log "Moving app to /Applications/ folder..."
+if [ -d "/Applications/ColorsClassifier.app" ]; then
+    rm -rf "/Applications/ColorsClassifier.app"
+fi
 mv ./dist/ColorsClassifier.app /Applications/
 
 log "Creating python virtual environment..."
