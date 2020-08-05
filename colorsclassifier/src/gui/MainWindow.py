@@ -32,7 +32,7 @@ class MainWindow(tk.Tk):
         image = Image.open(f"{Context.app_images_folder}/background.png")
         self.background_image = ImageTk.PhotoImage(image)
         background_label = tk.Label(self, image=self.background_image)
-        background_label.place(x=0, y=0)
+        background_label.place(x=0, y=0, relwidth=1)
 
         # Set size of empty rows and columns
         self.grid_rowconfigure(0, minsize=100)

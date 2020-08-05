@@ -13,40 +13,14 @@
 # Configuration variables
 APP_NAME="ColorsClassifier"
 APP_DIR="dist/${APP_NAME}.app"
-CONTENTS_DIR="${APP_DIR}/Contents"
-MACOS_DIR="${CONTENTS_DIR}/MacOS"
-RES_DIR="${CONTENTS_DIR}/Resources"
-APP_FILE="${MACOS_DIR}/${APP_NAME}"
+MACOS_DIR="${APP_DIR}/Contents/MacOS"
 
-if [ "${1}" == "--clean" ]; then
-    rm -rf "${APP_DIR}"
-fi
+# Create app structure
+mkdir -p "${MACOS_DIR}"
 
-# If nothing was already built
-if [ ! -d "${APP_DIR}" ]; then
-    # Create workspace
-    mkdir -p "${MACOS_DIR}"
-    mkdir -p "${RES_DIR}"
-    # Add "binary"
-    cp scripts/run_app.sh "${APP_FILE}"
-    chmod +x "${APP_FILE}"
-    # Set icon
-    fileicon set "${APP_DIR}" "images/icon.png"
-    # Create and activate virtualenv
-    cd "${RES_DIR}"
-    python3 -m venv venv
-    source venv/bin/activate
-    cd -
-    # Install Colors-Classifier package
-    pip install -r requirements.txt
-    pip install .
+# Add startup script
+cp "scripts/run_osx.sh" "${MACOS_DIR}/${APP_NAME}"
+chmod +x "${MACOS_DIR}/${APP_NAME}"
 
-# Update sources only
-else
-    source "${RES_DIR}/venv/bin/activate"
-    pip install --upgrade --force-reinstall --no-deps .
-fi
-
-# Update images
-rm -rf "${RES_DIR}/images"
-cp -r "images" "${RES_DIR}/images"
+# Add icon
+fileicon set "${APP_DIR}" "images/icon.png"
