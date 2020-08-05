@@ -17,6 +17,5 @@ class SortingFrame(OptionFrame):
             default_value=Config.default_sorting,
             values=Config.sortings,
             command=_set_sorting,
-            title="Sorting",
             master=master,
         )

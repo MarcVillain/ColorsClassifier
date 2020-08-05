@@ -1,4 +1,6 @@
 import logging
+
+import tkinter as tk
 from tkinter import messagebox
 
 from colorsclassifier.src.context import Context
@@ -16,15 +18,20 @@ class IOHelper:
         :return: True if input is case insensitive "y" or "yes" else False.
         """
         if Context.is_gui:
-            return messagebox.askyesno("Confirmation", message)
+            res = (
+                messagebox.askquestion(
+                    "Confirmation", message, icon="warning"
+                )
+                == "yes"
+            )
+            # Due to a weird bug in MacOS when using Tkinter,
+            # the messagebox will not close immediately and we
+            # need to get focus back to the main window manually
+            # to at least make it seem like its intended.
+            tk._default_root.grab_set()
+            tk._default_root.grab_release()
+            return res
         else:
             print(message, "[y/N]", end="")
             choice = input().lower()
             return choice in ["y", "yes"]
-
-    @staticmethod
-    def info(message):
-        if Context.is_gui:
-            messagebox.showinfo("Information", message)
-        else:
-            logger.info(message)

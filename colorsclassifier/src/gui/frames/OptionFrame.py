@@ -6,13 +6,14 @@ logger = logging.getLogger("color_classifier")
 
 
 class OptionFrame(tk.Frame):
-    def __init__(self, default_value, values, command, title, master=None):
+    def __init__(self, default_value, values, command, master=None):
         super().__init__(master=master)
 
         var = tk.StringVar(self)
         var.set(default_value)
 
-        tk.Label(self, text=f"{title}: ").grid(row=0, column=0)
-        ttk.OptionMenu(
+        option_menu = ttk.OptionMenu(
             self, var, default_value, *values, command=command,
-        ).grid(row=0, column=1)
+        )
+        option_menu.config(width=30)
+        option_menu.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)

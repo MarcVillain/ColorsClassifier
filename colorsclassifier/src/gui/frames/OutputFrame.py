@@ -17,6 +17,5 @@ class OutputFrame(OptionFrame):
             default_value=Config.default_output,
             values=Config.output_types,
             command=_set_output,
-            title="Output",
             master=master,
         )

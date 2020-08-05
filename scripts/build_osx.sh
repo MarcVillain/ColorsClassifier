@@ -18,7 +18,7 @@ MACOS_DIR="${CONTENTS_DIR}/MacOS"
 RES_DIR="${CONTENTS_DIR}/Resources"
 APP_FILE="${MACOS_DIR}/${APP_NAME}"
 
-if [ "${1}" == "--clean" ]; do
+if [ "${1}" == "--clean" ]; then
     rm -rf "${APP_DIR}"
 fi
 
@@ -46,3 +46,7 @@ else
     source "${RES_DIR}/venv/bin/activate"
     pip install --upgrade --force-reinstall --no-deps .
 fi
+
+# Update images
+rm -rf "${RES_DIR}/images"
+cp -r "images" "${RES_DIR}/images"

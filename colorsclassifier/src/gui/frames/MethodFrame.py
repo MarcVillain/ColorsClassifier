@@ -17,6 +17,5 @@ class MethodFrame(OptionFrame):
             default_value=Config.default_method,
             values=Config.methods,
             command=_set_method,
-            title="Method",
             master=master,
         )

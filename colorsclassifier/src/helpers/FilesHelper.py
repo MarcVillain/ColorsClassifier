@@ -15,8 +15,18 @@ class FilesHelper:
             if not force:
                 if ignore_errors:
                     return False
-                if not IOHelper.ask_yes_no(
-                    f"Folder '{path}' already exists.\nDo you want to replace it?"
+                # If directory, check if empty
+                if os.path.isdir(path):
+                    for _, _, files in os.walk(path):
+                        if files and not IOHelper.ask_yes_no(
+                            f"Folder '{path}' is not empty.\nDo you want to replace it?"
+                        ):
+                            return False
+                        else:
+                            break
+                # If file, ask for replacement
+                if os.path.isfile(path) and not IOHelper.ask_yes_no(
+                    f"File '{path}' exists.\nDo you want to replace it?"
                 ):
                     return False
 
@@ -74,7 +84,7 @@ class FilesHelper:
 
     @staticmethod
     def get_images_in(folder, recurse=False):
-        if not os.path.exists(folder):
+        if not folder or not os.path.exists(folder):
             return []
 
         images = []

@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 import sys
 
 from colorsclassifier.src import run
@@ -45,11 +46,7 @@ def parse_command_line():
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
-        metavar="FOLDER",
-        help="Output folder.",
-        default="output",
+        "-o", "--output", metavar="FOLDER", help="Output folder.",
     )
 
     parser.add_argument(
@@ -135,7 +132,11 @@ def main():
         logger_console_stream.setLevel(logging.DEBUG)
     logger.debug(f"Program arguments: {args}")
 
+    # Load context variables
     Context.is_gui = args.gui
+    Context.app_images_folder = os.environ.get(
+        "APP_IMAGES_FOLDER", Context.app_images_folder
+    )
 
     if Context.is_gui:
         window = MainWindow(args)
