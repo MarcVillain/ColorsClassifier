@@ -4,10 +4,26 @@ from colorsclassifier.src.helpers.FilesHelper import FilesHelper
 
 
 class FilenamesOutput(Output):
+    """
+    Output class.
+
+    The output will be done by copying every image into
+    the output folder and prepending its name with the
+    sorting value.
+    """
+
     def prepare(self):
+        """
+        Prepare the output structure, if necessary.
+        :return: True on success, else False.
+        """
         return FilesHelper.create_dir(self.output_path, self.force)
 
     def compute(self, classified):
+        """
+        Build the output using the classification information.
+        :param classified: Classification information.
+        """
         for name, value in classified.items():
             # Handle colored tile generation
             colored_tile_path = FilesHelper.join(

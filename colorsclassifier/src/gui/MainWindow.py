@@ -16,7 +16,15 @@ from colorsclassifier.src.gui.frames.SortingFrame import SortingFrame
 
 
 class MainWindow(tk.Tk):
+    """
+    Main window used for the app.
+    """
+
     def __init__(self, args):
+        """
+        Initialize class.
+        :param args: ArgParse arguments.
+        """
         super().__init__()
 
         self.args = args
@@ -103,19 +111,37 @@ class MainWindow(tk.Tk):
         self.info_label.grid(row=8, column=1, columnspan=2, pady=5, padx=5)
 
     def _on_click(self):
+        """
+        Handle click on "Classify" button.
+        Create a new process for the run() command to
+        prevent any blocking of the GUI.
+        """
+        # Disable button
         self.button.config(state=tk.DISABLED)
+
+        # Start p1 process
         self.p1 = Process(
             target=run, args=(self.args, self.queue, Context.serialize(),)
         )
         self.p1.start()
+
+        # Check the process state after 100ms
         self.after(100, self._on_update)
 
     def _on_update(self):
+        """
+        Check the state of the p1 process.
+        While alive, check every 100ms.
+        """
+        # Extract last message in queue
         while not self.queue.empty():
             message = self.queue.get()
             self.info_label.configure(text=message)
 
+        # If alive, update again in 100ms
         if self.p1.is_alive():
             self.after(100, self._on_update)
             return
+
+        # If done, activate button back
         self.button.config(state=tk.NORMAL)

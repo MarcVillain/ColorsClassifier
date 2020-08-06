@@ -9,8 +9,21 @@ logger = logging.getLogger("color_classifier")
 
 
 class FilesHelper:
+    """
+    Helper class.
+
+    Helps to handle files operations.
+    """
+
     @classmethod
     def _clear_path(cls, path, force, ignore_errors):
+        """
+        Handle deletion of given path.
+        :param path: File or folder to delete.
+        :param force: If True, delete without any questions.
+        :param ignore_errors: It True and not force, return False
+        :return: True on success else False.
+        """
         if os.path.exists(path):
             if not force:
                 if ignore_errors:
@@ -84,30 +97,57 @@ class FilesHelper:
 
     @staticmethod
     def get_images_in(folder, recurse=False):
+        """
+        List images files in given folder.
+        :param folder: Look for images in this folder.
+        :param recurse: If True, search recursively.
+        :return: List of images paths.
+        """
         if not folder or not os.path.exists(folder):
             return []
 
         images = []
         # TODO: Recursive search
         for f in os.listdir(folder):
+            # Chek if file
             file_path = os.path.join(folder, f)
             if not os.path.isfile(file_path):
                 continue
+            # Check file type
             image_type = imghdr.what(file_path)
             if image_type is None:
                 logger.debug(f"Not an image: {file_path}")
                 continue
+            # Add image path to list
             images.append(file_path)
         return images
 
     @staticmethod
     def join(*args, **kwargs):
+        """
+        Join path strings.
+        Wrapper around os.path.join().
+        :param args: Arguments.
+        :param kwargs: Named arguments.
+        :return: The joined path string.
+        """
         return os.path.join(*args, **kwargs)
 
     @staticmethod
     def copy(src, dst):
+        """
+        Copy source to destination.
+        Wrapper around shutil.copyfile().
+        :param src: Source file or folder.
+        :param dst: Destination file or folder.
+        """
         shutil.copyfile(src, dst)
 
     @staticmethod
     def basename(path):
+        """
+        Get basename of path (aka filename).
+        :param path: Path to manipulate.
+        :return: Basename of the given path.
+        """
         return os.path.basename(path)

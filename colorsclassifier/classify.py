@@ -23,7 +23,7 @@ logger.addHandler(logger_console_stream)
 def parse_command_line():
     """
     Parse the command line.
-    :return: Dictionnary of arguments.
+    :return: Dictionary of arguments.
     """
     parser = argparse.ArgumentParser(
         description="""
@@ -125,6 +125,9 @@ def parse_command_line():
 
 
 def main():
+    """
+    This is the main function. Obviously.
+    """
     args = parse_command_line()
 
     if args.debug:

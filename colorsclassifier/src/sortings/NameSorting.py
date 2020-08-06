@@ -8,6 +8,13 @@ from colorsclassifier.src.sortings import Sorting
 
 
 class NameSorting(Sorting):
+    """
+    Sorting class.
+
+    The output will be represented by a color name,
+    found in the hard-coded list.
+    """
+
     colors = {
         "dark red": (139, 0, 0),
         "brown": (165, 42, 42),
@@ -150,6 +157,21 @@ class NameSorting(Sorting):
     }
 
     def _rgb_distance(self, color_a, color_b):
+        """
+        Compute the distance between two RGB values.
+
+        At first, I used the Euclidian distance but it
+        was to much of a "real" distance and not enough
+        of a "visual" distance.
+
+        Therefore, I decided to go with the common method
+        of delta_e computation, using the converted LAB
+        values of the two RGB colors.
+
+        :param color_a: First color.
+        :param color_b: Second color.
+        :return: Distance between the colors.
+        """
         color1_rgb = sRGBColor(
             color_a[0] / 255, color_a[1] / 255, color_a[2] / 255
         )
@@ -165,6 +187,13 @@ class NameSorting(Sorting):
         return delta_e_cie2000(color1_lab, color2_lab)
 
     def get_value_for(self, r, g, b):
+        """
+        Get value representation for sorting.
+        :param r: Red value.
+        :param g: Blue value.
+        :param b: Green value.
+        :return: Closest color name.
+        """
         closest_distance = math.inf
         closest_name = "black"
 

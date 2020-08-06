@@ -10,6 +10,10 @@ from colorsclassifier.src.sortings.RGBSorting import RGBSorting
 
 
 class Config:
+    """
+    This class holds constant information.
+    No value must be changed at runtime.
+    """
     default_method = "palette"
     methods = {
         "average": AverageMethod,

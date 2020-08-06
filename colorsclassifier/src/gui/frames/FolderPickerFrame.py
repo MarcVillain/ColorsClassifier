@@ -3,7 +3,17 @@ from tkinter import ttk, filedialog
 
 
 class FolderPickerFrame(tk.Frame):
+    """
+    Tkinter Frame class.
+    """
+
     def __init__(self, title, command, master=None):
+        """
+        Initialize class.
+        :param title: Title of the directory dialog box.
+        :param command: Command to run on the selected path.
+        :param master: Parent Tkinter element.
+        """
         super().__init__(master=master)
 
         self.title = title
@@ -20,6 +30,9 @@ class FolderPickerFrame(tk.Frame):
         button.pack(side=tk.LEFT)
 
     def file_dialog(self):
+        """
+        Handle 'Browse' button press.
+        """
         folder_path = filedialog.askdirectory(
             initialdir=".", title=self.title
         )

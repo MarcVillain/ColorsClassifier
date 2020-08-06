@@ -1,4 +1,8 @@
 def center(window):
+    """
+    Center a Tkinter window.
+    :param window: The window to center.
+    """
     window.update_idletasks()
 
     screen_width = window.winfo_screenwidth()

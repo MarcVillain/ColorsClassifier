@@ -14,12 +14,22 @@ class Classifier:
         sort_by=Config.default_sorting,
         message_queue=None,
     ):
+        """
+        Initialize class.
+        :param precision: Precision value used for PaletteMethod.
+        :param method_name: Name of the method (aka algorithm) to use.
+        :param sort_by: Name of the sort operation to use.
+        :param message_queue: Used when started in another process to retrieve messages.
+        """
         self.method = Config.methods.get(method_name)(precision)
         self.sorting = Config.sortings.get(sort_by)()
         self.message_queue = message_queue
 
     def classify(self, folder, recurse=False):
         """
+        Call classification operation on every image.
+        :param folder: Folder where the images to classify are.
+        :param recurse: If true, look also for images in subdirectories.
         :return: Dictionary of classified images.
         """
         output = {}

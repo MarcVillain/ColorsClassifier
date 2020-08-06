@@ -10,6 +10,12 @@ logger = logging.getLogger("color_classifier")
 
 
 class IOHelper:
+    """
+    Helper class.
+
+    Helps to handle input and output with user.
+    """
+
     @staticmethod
     def ask_yes_no(message):
         """
