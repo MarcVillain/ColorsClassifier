@@ -28,6 +28,11 @@ Make sure you have activated your venv first.
 colorsclassifier --help
 ```
 
+# Screenshots
+
+![GUI](https://github.com/MarcVillain/ColorsClassifier/raw/master/screenshots/gui.png)
+![CLI](https://github.com/MarcVillain/ColorsClassifier/raw/master/screenshots/cli.png)
+
 # Authors
 
 * Marc Villain <marc.villain@epita.fr>
