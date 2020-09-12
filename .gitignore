@@ -7,3 +7,5 @@ build/
 local/
 .DS_Store
 .idea
+venv
+venv.nosync
