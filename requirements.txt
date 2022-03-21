@@ -1,7 +1,7 @@
 black==19.10b0
 colormath==3.0.0
 colorthief==0.2.1
-numpy==1.19.1
+numpy==1.21.0
 opencv-python==4.3.0.36
 Pillow==9.0.1
 PyYAML==5.4
