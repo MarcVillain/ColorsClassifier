@@ -3,6 +3,6 @@ colormath==3.0.0
 colorthief==0.2.1
 numpy==1.22.0
 opencv-python==4.3.0.36
-Pillow==9.3.0
+Pillow==10.0.1
 PyYAML==5.4
 py2app==0.21
